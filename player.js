@@ -5,25 +5,25 @@ exports = module.exports = {
 
   bet: function (gamestate) {
 
-    //
-    // gamestate contains info about the state of the game.
-    // check the documentation at https://bot-poker.herokuapp.com/wiki#gamestate for further info about the data structure.
-
-    //
-    // you just have to return the amount that you want to bet.
-
-
-
-    // enjoy the game!
-
-    //
-    // currently we just fold every single hand.
-
     'use strict';
 
-    console.log(`Currently playing tournament ${gamestate.tournamentId}`);
+    const gs = gamestate;
+    const p = gs.players;
+    const me = p[gs.me];
+    
+    console.log(gs);
 
-    return gamestate.callAmount;
+    if (me.cards.find(card => parseInt(card.rank) !== parseInt(card.rank))) {
+      console.log(`bidirindrip wip raise ${gs.callAmount}`);
+      return gs.minimumRaiseAmount * 2;
+    }
+    else if (me.chipsBet > 0){
+      console.log(`bid drip call ${gs.callAmount}`);
+      return gs.callAmount;
+    }
+
+    console.log(`bid drip 0`);
+    return 0;
 
   }
 
